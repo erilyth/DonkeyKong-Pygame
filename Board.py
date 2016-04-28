@@ -47,15 +47,15 @@ class Board:
         self.resetGroups()
 
         # The buttons used in the pregame and postgame screens
-        self.Buttons = [Button(pygame.image.load('start.png'), (500, 400), "start"),
-                        Button(pygame.image.load('exit.png'), (700, 400), "exit"),
-                        Button(pygame.image.load('restart.png'), (500, 400), "restart"), ]
+        self.Buttons = [Button(pygame.image.load('Assets/start.png'), (500, 400), "start"),
+                        Button(pygame.image.load('Assets/exit.png'), (700, 400), "exit"),
+                        Button(pygame.image.load('Assets/restart.png'), (500, 400), "restart"), ]
         self.ActiveButtons = [1, 1, 0]  # Initially the pregame screen uses the first 2 buttons
         self.myfont = pygame.font.SysFont("comicsansms", 50)
 
-        self.background = pygame.image.load('background.png')
+        self.background = pygame.image.load('Assets/background.png')
         self.background = pygame.transform.scale(self.background, (width, height))
-        self.startbackground = pygame.image.load('buttonbackground.jpg')
+        self.startbackground = pygame.image.load('Assets/buttonbackground.jpg')
         self.startbackground = pygame.transform.scale(self.startbackground, (width, height))
 
         # Initialize the instance groups which we use to display our instances on the screen
@@ -73,25 +73,25 @@ class Board:
     def resetGroups(self):
         self.score = 0
         self.map = []  # We will create the map again when we reset the game
-        self.Players = [Player(pygame.image.load('still.png'), (50, 440))]
-        self.Enemies = [DonkeyKong(pygame.image.load('kong0.png'), (100, 117))]
-        self.Allies = [Person(pygame.image.load('princess.png'), (50, 55))]
+        self.Players = [Player(pygame.image.load('Assets/still.png'), (50, 440))]
+        self.Enemies = [DonkeyKong(pygame.image.load('Assets/kong0.png'), (100, 117))]
+        self.Allies = [Person(pygame.image.load('Assets/princess.png'), (50, 55))]
         self.Allies[0].updateWH(self.Allies[0].image, "H", 0, 25, 25)
         self.Coins = []
         self.Walls = []
         self.Ladders = []
         self.Fireballs = []
-        self.Hearts = [OnBoard(pygame.image.load('heart.png'), (730, 490)),
-                       OnBoard(pygame.image.load('heart.png'), (750, 490)),
-                       OnBoard(pygame.image.load('heart.png'), (770, 490))]
-        self.Hearts[0].modifySize(pygame.image.load('heart.png'), 20, 20)
-        self.Hearts[1].modifySize(pygame.image.load('heart.png'), 20, 20)
-        self.Hearts[2].modifySize(pygame.image.load('heart.png'), 20, 20)
-        self.Boards = [OnBoard(pygame.image.load('board.png'), (200, 480)),
-                       OnBoard(pygame.image.load('board.png'), (685, 480))]
+        self.Hearts = [OnBoard(pygame.image.load('Assets/heart.png'), (730, 490)),
+                       OnBoard(pygame.image.load('Assets/heart.png'), (750, 490)),
+                       OnBoard(pygame.image.load('Assets/heart.png'), (770, 490))]
+        self.Hearts[0].modifySize(pygame.image.load('Assets/heart.png'), 20, 20)
+        self.Hearts[1].modifySize(pygame.image.load('Assets/heart.png'), 20, 20)
+        self.Hearts[2].modifySize(pygame.image.load('Assets/heart.png'), 20, 20)
+        self.Boards = [OnBoard(pygame.image.load('Assets/board.png'), (200, 480)),
+                       OnBoard(pygame.image.load('Assets/board.png'), (685, 480))]
         self.Boards[0].modifySize(self.Boards[0].image, 40, 150)  # Do this on purpose to get a pixelated image
         self.Boards[1].modifySize(self.Boards[1].image, 40, 150)
-        self.FireballEndpoints = [OnBoard(pygame.image.load('still.png'), (50, 440))]
+        self.FireballEndpoints = [OnBoard(pygame.image.load('Assets/still.png'), (50, 440))]
         self.initializeGame()  # This initializes the game and generates our map
         self.createGroups()  # This creates the instance groups
 
@@ -104,7 +104,7 @@ class Board:
     def CreateFireball(self, location, kongIndex):
         if len(self.Fireballs) < len(self.Enemies) * 6+6:
             self.Fireballs.append(
-                Fireball(pygame.image.load('fireballright.png'), (location[0], location[1] + 15), len(self.Fireballs),
+                Fireball(pygame.image.load('Assets/fireballright.png'), (location[0], location[1] + 15), len(self.Fireballs),
                          2 + len(self.Enemies)/2))
             # Starts DonkeyKong's animation
             self.Enemies[kongIndex].setStopDuration(15)
@@ -140,7 +140,7 @@ class Board:
                             self.map[i][j] = 0
                         if self.map[i][j] == 3:
                             # Add the coin to our coin list
-                            self.Coins.append(Coin(pygame.image.load('coin1.png'), (j * 15 + 15 / 2, i * 15 + 15 / 2)))
+                            self.Coins.append(Coin(pygame.image.load('Assets/coin1.png'), (j * 15 + 15 / 2, i * 15 + 15 / 2)))
         if len(self.Coins) <= 20:  # If there are less than 21 coins, we call the function again
             self.GenerateCoins()
 
@@ -230,10 +230,10 @@ class Board:
             for y in range(len(self.map[x])):
                 if self.map[x][y] == 1:
                     # Add a wall at that position
-                    self.Walls.append(OnBoard(pygame.image.load('wood_block.png'), (y * 15 + 15 / 2, x * 15 + 15 / 2)))
+                    self.Walls.append(OnBoard(pygame.image.load('Assets/wood_block.png'), (y * 15 + 15 / 2, x * 15 + 15 / 2)))
                 elif self.map[x][y] == 2:
                     # Add a ladder at that position
-                    self.Ladders.append(OnBoard(pygame.image.load('ladder.png'), (y * 15 + 15 / 2, x * 15 + 15 / 2)))
+                    self.Ladders.append(OnBoard(pygame.image.load('Assets/ladder.png'), (y * 15 + 15 / 2, x * 15 + 15 / 2)))
 
     # Check if the player is on a ladder or not
     def ladderCheck(self, laddersCollidedBelow, wallsCollidedBelow, wallsCollidedAbove):
@@ -259,7 +259,7 @@ class Board:
                     self.Fireballs.remove(fireball)
                     self.Hearts.pop(len(self.Hearts) - 1)
                     self.Players[0].setPosition((50, 440))
-                    mixer.music.load('death.wav')
+                    mixer.music.load('Assets/death.wav')
                     mixer.music.set_volume(1)
                     pygame.mixer.music.play()
                     print "YOU DIED"
@@ -291,7 +291,7 @@ class Board:
         if self.Players[0].checkCollision(self.allyGroup) or self.Players[0].getPosition()[1] < 5 * 15:
 
             print "VICTORY"
-            mixer.music.load('levelcomplete.wav')  # Victory sound
+            mixer.music.load('Assets/levelcomplete.wav')  # Victory sound
             mixer.music.set_volume(1)
             pygame.mixer.music.play()
             clock.tick(100)  # A delay of 0.1 second before the next level starts
@@ -305,9 +305,9 @@ class Board:
 
             # Add Donkey Kongs
             if len(self.Enemies) == 1:
-                self.Enemies.append(DonkeyKong(pygame.image.load('kong0.png'), (700, 117)))
+                self.Enemies.append(DonkeyKong(pygame.image.load('Assets/kong0.png'), (700, 117)))
             elif len(self.Enemies) == 2:
-                self.Enemies.append(DonkeyKong(pygame.image.load('kong0.png'), (400, 117)))
+                self.Enemies.append(DonkeyKong(pygame.image.load('Assets/kong0.png'), (400, 117)))
             # Create the groups again so the enemies are effected
             self.createGroups()
 
@@ -338,19 +338,19 @@ class Board:
             # If the button is active
             if self.ActiveButtons[button] == 1 and self.Buttons[button].rect.collidepoint(mousePosition):
                 if button == 0:
-                    self.Buttons[button].changeImage(pygame.image.load('start1.png'))
+                    self.Buttons[button].changeImage(pygame.image.load('Assets/start1.png'))
                 elif button == 1:
-                    self.Buttons[button].changeImage(pygame.image.load('exit1.png'))
+                    self.Buttons[button].changeImage(pygame.image.load('Assets/exit1.png'))
                 elif button == 2:
-                    self.Buttons[button].changeImage(pygame.image.load('restart1.png'))
+                    self.Buttons[button].changeImage(pygame.image.load('Assets/restart1.png'))
             # Inactive button
             else:
                 if button == 0:
-                    self.Buttons[button].changeImage(pygame.image.load('start.png'))
+                    self.Buttons[button].changeImage(pygame.image.load('Assets/start.png'))
                 elif button == 1:
-                    self.Buttons[button].changeImage(pygame.image.load('exit.png'))
+                    self.Buttons[button].changeImage(pygame.image.load('Assets/exit.png'))
                 elif button == 2:
-                    self.Buttons[button].changeImage(pygame.image.load('restart.png'))
+                    self.Buttons[button].changeImage(pygame.image.load('Assets/restart.png'))
 
     # Redraws the entire game screen for us
     def redrawScreen(self, displayScreen, scoreLabel, width, height):
@@ -360,7 +360,7 @@ class Board:
             displayScreen.blit(self.startbackground, self.startbackground.get_rect())
             if self.gameState == 0:
                 # Pregame state
-                displayScreen.blit(pygame.image.load('donkeykongtext.png'), (340, 50))
+                displayScreen.blit(pygame.image.load('Assets/donkeykongtext.png'), (340, 50))
             if self.gameState == 2:
                 # Post game state
                 label = self.myfont.render("Your score is " + str(self.score), 1, (255, 255, 255))

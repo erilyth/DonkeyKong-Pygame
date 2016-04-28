@@ -68,7 +68,7 @@ class Fireball(OnBoard):
 
             #We are moving right, so update the fireball image to the right
             if self.__direction == 0:
-                self.update(pygame.image.load('fireballright.png'), "H", self.__speed)
+                self.update(pygame.image.load('Assets/fireballright.png'), "H", self.__speed)
                 #When we hit a wall, we change direction
                 if self.checkCollision(wallGroup, "H"):
                     self.__direction = 1
@@ -76,7 +76,7 @@ class Fireball(OnBoard):
 
             #We are moving left, so update the fireball image to the left
             else:
-                self.update(pygame.image.load('fireballleft.png'), "H", -self.__speed)
+                self.update(pygame.image.load('Assets/fireballleft.png'), "H", -self.__speed)
                 #When we hit a wall, we change direction
                 if self.checkCollision(wallGroup, "H"):
                     self.__direction = 0

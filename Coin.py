@@ -33,20 +33,20 @@ class Coin(OnBoard):
     def animateCoin(self):
         self.__coinAnimState = (self.__coinAnimState + 1) % 25
         if self.__coinAnimState / 5 == 0:
-            self.updateImage(pygame.image.load('coin1.png'))
+            self.updateImage(pygame.image.load('Assets/coin1.png'))
         if self.__coinAnimState / 5 == 1:
-            self.updateImage(pygame.image.load('coin2.png'))
+            self.updateImage(pygame.image.load('Assets/coin2.png'))
         if self.__coinAnimState / 5 == 2:
-            self.updateImage(pygame.image.load('coin3.png'))
+            self.updateImage(pygame.image.load('Assets/coin3.png'))
         if self.__coinAnimState / 5 == 3:
-            self.updateImage(pygame.image.load('coin4.png'))
+            self.updateImage(pygame.image.load('Assets/coin4.png'))
         if self.__coinAnimState / 5 == 4:
-            self.updateImage(pygame.image.load('coin5.png'))
+            self.updateImage(pygame.image.load('Assets/coin5.png'))
 
     def collectCoin(self):
         # Play coin sound when you collect a coin
         mixer.init()
-        mixer.music.load('coin.wav')
+        mixer.music.load('Assets/coin.wav')
         mixer.music.set_volume(1)
         pygame.mixer.music.play()
         print "You have picked up a coin!"

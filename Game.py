@@ -123,7 +123,7 @@ class Game:
                                 self.newGame.Players[0].currentJumpSpeed = 7
                                 if event.key == K_SPACE:
                                     # Play the jump sound
-                                    mixer.music.load('jump.wav')
+                                    mixer.music.load('Assets/jump.wav')
                                     mixer.music.set_volume(1)
                                     pygame.mixer.music.play()
                                     #print "Started JUMP"
@@ -143,16 +143,16 @@ class Game:
                     self.newGame.cycles = (self.newGame.cycles + 1) % 10
                     if self.newGame.cycles < 5:
                         # Display the first image for half the cycles
-                        self.newGame.Players[0].updateWH(pygame.image.load('right.png'), "H",
+                        self.newGame.Players[0].updateWH(pygame.image.load('Assets/right.png'), "H",
                                                          self.newGame.Players[0].getSpeed(), 15, 15)
                     else:
                         # Display the second image for half the cycles
-                        self.newGame.Players[0].updateWH(pygame.image.load('right2.png'), "H",
+                        self.newGame.Players[0].updateWH(pygame.image.load('Assets/right2.png'), "H",
                                                          self.newGame.Players[0].getSpeed(), 15, 15)
                     wallsCollidedExact = self.newGame.Players[0].checkCollision(self.wallGroup)
                     if wallsCollidedExact:
                         # If we have collided a wall, move the player back to where he was in the last state
-                        self.newGame.Players[0].updateWH(pygame.image.load('right.png'), "H",
+                        self.newGame.Players[0].updateWH(pygame.image.load('Assets/right.png'), "H",
                                                          -self.newGame.Players[0].getSpeed(), 15, 15)
 
                 if keyState[pygame.K_a]:
@@ -162,30 +162,30 @@ class Game:
                     self.newGame.cycles = (self.newGame.cycles + 1) % 10
                     if self.newGame.cycles < 5:
                         # Display the first image for half the cycles
-                        self.newGame.Players[0].updateWH(pygame.image.load('left.png'), "H",
+                        self.newGame.Players[0].updateWH(pygame.image.load('Assets/left.png'), "H",
                                                          -self.newGame.Players[0].getSpeed(), 15, 15)
                     else:
                         # Display the second image for half the cycles
-                        self.newGame.Players[0].updateWH(pygame.image.load('left2.png'), "H",
+                        self.newGame.Players[0].updateWH(pygame.image.load('Assets/left2.png'), "H",
                                                          -self.newGame.Players[0].getSpeed(), 15, 15)
                     wallsCollidedExact = self.newGame.Players[0].checkCollision(self.wallGroup)
                     if wallsCollidedExact:
                         # If we have collided a wall, move the player back to where he was in the last state
-                        self.newGame.Players[0].updateWH(pygame.image.load('left.png'), "H",
+                        self.newGame.Players[0].updateWH(pygame.image.load('Assets/left.png'), "H",
                                                          self.newGame.Players[0].getSpeed(), 15, 15)
 
                 # If we are on a ladder, then we can move up
                 if keyState[pygame.K_w] and self.newGame.Players[0].onLadder:
-                    self.newGame.Players[0].updateWH(pygame.image.load('still.png'), "V",
+                    self.newGame.Players[0].updateWH(pygame.image.load('Assets/still.png'), "V",
                                                      -self.newGame.Players[0].getSpeed() / 2, 15, 15)
                     if len(self.newGame.Players[0].checkCollision(self.ladderGroup)) == 0 or len(
                             self.newGame.Players[0].checkCollision(self.wallGroup)) != 0:
-                        self.newGame.Players[0].updateWH(pygame.image.load('still.png'), "V",
+                        self.newGame.Players[0].updateWH(pygame.image.load('Assets/still.png'), "V",
                                                          self.newGame.Players[0].getSpeed() / 2, 15, 15)
 
                 # If we are on a ladder, then we can move down
                 if keyState[pygame.K_s] and self.newGame.Players[0].onLadder:
-                    self.newGame.Players[0].updateWH(pygame.image.load('still.png'), "V",
+                    self.newGame.Players[0].updateWH(pygame.image.load('Assets/still.png'), "V",
                                                      self.newGame.Players[0].getSpeed() / 2, 15, 15)
 
                 # Redraws all our instances onto the screen
