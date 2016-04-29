@@ -29,7 +29,7 @@ class Board:
         self.__actHeight = height
         self.__height = self.__actHeight + 10
         self.score = 0
-        self.gameState = 0
+        self.gameState = 1
         self.cycles = 0  # For the characters animation
         self.direction = 0
 
@@ -268,10 +268,8 @@ class Board:
                         self.score = 0
                     self.createGroups()
                 else:  # The player has lost all lives, so end the game
-                    self.gameState = 2
-                    self.ActiveButtons[0] = 0
-                    self.ActiveButtons[1] = 1
-                    self.ActiveButtons[2] = 1
+                    pygame.quit()
+                    sys.exit()
             self.checkFireballDestroy(fireball)
 
     # Check for coins collided and add the appropriate score
@@ -311,63 +309,9 @@ class Board:
             # Create the groups again so the enemies are effected
             self.createGroups()
 
-    # When a button is clicked perform the needed actions
-    def processButton(self):
-        # If the start button is pressed
-        if self.ActiveButtons[0] == 1 and self.Buttons[0].rect.collidepoint(pygame.mouse.get_pos()):
-            self.resetGroups()
-            self.gameState = 1
-            self.ActiveButtons[0] = 0
-            self.ActiveButtons[1] = 0
-            self.ActiveButtons[2] = 0
-        # If the exit button is pressed
-        if self.ActiveButtons[1] == 1 and self.Buttons[1].rect.collidepoint(pygame.mouse.get_pos()):
-            pygame.quit()
-            sys.exit()
-        # If the restart button is pressed
-        if self.ActiveButtons[2] == 1 and self.Buttons[2].rect.collidepoint(pygame.mouse.get_pos()):
-            self.gameState = 0
-            self.ActiveButtons[0] = 1
-            self.ActiveButtons[1] = 1
-            self.ActiveButtons[2] = 0
-
-    # Checks for mouse hovers over buttons to change their images giving a hover button effect
-    def checkButton(self):
-        mousePosition = pygame.mouse.get_pos()
-        for button in range(len(self.Buttons)):
-            # If the button is active
-            if self.ActiveButtons[button] == 1 and self.Buttons[button].rect.collidepoint(mousePosition):
-                if button == 0:
-                    self.Buttons[button].changeImage(pygame.image.load('Assets/start1.png'))
-                elif button == 1:
-                    self.Buttons[button].changeImage(pygame.image.load('Assets/exit1.png'))
-                elif button == 2:
-                    self.Buttons[button].changeImage(pygame.image.load('Assets/restart1.png'))
-            # Inactive button
-            else:
-                if button == 0:
-                    self.Buttons[button].changeImage(pygame.image.load('Assets/start.png'))
-                elif button == 1:
-                    self.Buttons[button].changeImage(pygame.image.load('Assets/exit.png'))
-                elif button == 2:
-                    self.Buttons[button].changeImage(pygame.image.load('Assets/restart.png'))
-
     # Redraws the entire game screen for us
     def redrawScreen(self, displayScreen, scoreLabel, width, height):
         displayScreen.fill((0, 0, 0))  # Fill it with black
-        # If we are in either pregame or postgame states
-        if self.gameState != 1:
-            displayScreen.blit(self.startbackground, self.startbackground.get_rect())
-            if self.gameState == 0:
-                # Pregame state
-                displayScreen.blit(pygame.image.load('Assets/donkeykongtext.png'), (340, 50))
-            if self.gameState == 2:
-                # Post game state
-                label = self.myfont.render("Your score is " + str(self.score), 1, (255, 255, 255))
-                displayScreen.blit(label, (410, 70))
-            for button in range(len(self.ActiveButtons)):
-                if self.ActiveButtons[button] == 1:
-                    displayScreen.blit(self.Buttons[button].image, self.Buttons[button].getTopLeftPosition())
         # We are in the game state
         if self.gameState == 1:
             # Draw the background first
